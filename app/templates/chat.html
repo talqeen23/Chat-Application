@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="wrapper">
+<div class="container-fluid chat-outer">
+		<div class="col-md-3 user-section">
+			<div class="sidebar_user">
+			
+				<h3>Online Users</h3>
+				<ul class="user_list">
+					{% if onlineusers: %}
+						{% for users in onlineusers%}
+							<li class="online_users online" id="user{{users[1]}}"> <span>{{ users[3] }} </span></li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-9 chat-section">
+        <div class="user-chat" data-id='{{ name }}'>
+		<h3>Realtime Chat : {{ name }} <small>(Socket Programming)</small>
+			<a href="{{url_for('main.logout')}}" class="leave_conversation btn btn-default pull-right" onclick="leave_room();">Leave this room</a>
+		</h3>
+        <div class="form-group">
+ 
+		<div id="chat">
+
+			{% if messagedata:%}
+				{% for msgdata in messagedata%}
+				 {%set class = 'you' %} 	{% if msgdata[4]==name: %} {% set class = 'me' %} {% endif %}
+					<div class="chatlist {{class}}"><span class="name">{{ msgdata[4] }} : </span><div class="msg">{{  msgdata[1] }}</div></div>
+				{% endfor %}
+			{% endif %}
+            </div>
+		</div>
+        <div class="message-area">
+        <textarea id="text" class="form-control typemessage"  placeholder="Enter your message here (Press enter for send message)" autocomplete="off"></textarea>
+		<a href="javascript:void 0" class="send_chat hidden-lg hidden-md hidden-sm btn btn-default pull-right"><i class="fa fa-location-arrow"></i></a>
+        </div>
+		</div>
+        </div>
+</div>		
+</div>
+
+{% endblock %}
+

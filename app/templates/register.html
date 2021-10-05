@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="wrapper">
+<div class="login-outer">
+<div class="login-wrapper">
+<span class="login-icon"><i class="fa fa-comments"></i></span>
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="top_notification">
+            {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+            {% macro render_error(field) %}
+                {% if field.errors %}
+                    {% for error in field.errors %}<span class='error'>{{ error }}</span>{% endfor %}
+                {% endif %}
+            {% endmacro %}
+			</div>
+		<form role="form" method="POST">
+			<fieldset>
+				<h2>User Register </h2>
+				 {{ form.hidden_tag() }}
+				<div class="form-group">
+                  {{ form.name(class='form-control',placeholder='Your Name') }} {% for error in form.name.errors %}{{ error }}{% endfor %}
+				</div>
+				<div class="form-group">
+                   
+				 {{ form.email(class='form-control',placeholder='Your Email') }} {% for error in form.email.errors %}{{ error }}{% endfor %}
+				</div>
+				<div class="form-group">
+				{{ form.password(class='form-control',placeholder='Your Password') }} {% for error in form.password.errors %}{{ error }}{% endfor %}
+				</div>
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-sm-6 col-md-6">
+                        {{ form.submit(class='btn btn-lg btn-default btn-block') }}
+						
+					</div>
+					<div class="col-sm-6 col-md-6">
+						<a href="{{url_for('main.index')}}" class="register_link btn btn-lg btn-default btn-block">Back to Login</a>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+</div>
+</div>       
+</div>
+{% endblock %}
